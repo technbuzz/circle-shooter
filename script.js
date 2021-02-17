@@ -3,8 +3,8 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-canvas.width = 800
-canvas.height = 600
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 
 const center = {
   x: canvas.width/2,
