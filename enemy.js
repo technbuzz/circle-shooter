@@ -37,4 +37,33 @@ class Enemy {
     this._x = this._x + this.velocity.x
     this._y = this._y + this.velocity.y
   }
+
+  static spawn(center, enemies) {
+    setInterval(() => {
+      const radius = Math.random() * (30 - 4) + 4
+      let x
+      let y
+  
+      if (Math.random() < 0.5) {
+        x = Math.random() < 0.5 ? 0 - radius : ctx.canvas.width + radius
+        y = Math.random() * ctx.canvas.height
+      } else {
+        x = Math.random() * ctx.canvas.width
+        y = Math.random() < 0.5 ? 0 - radius : ctx.canvas.height + radius
+  
+      }
+  
+  
+      const color = `hsl(${Math.random() * 360}, 50%, 50%)`
+      const angle = Math.atan2(center.y - y, center.x - x)
+  
+      const velocity = {
+        x: Math.cos(angle),
+        y: Math.sin(angle)
+      }
+  
+      const enemy = new Enemy(x, y, radius, color, ctx, velocity)
+      enemies.push(enemy)
+    }, 1000);
+  }
 }

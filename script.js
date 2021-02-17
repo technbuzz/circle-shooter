@@ -12,7 +12,7 @@ const center = {
 }
 
 
-const player = new Player(100, 100, 30, 'blue', ctx)
+const player = new Player(100, 100, 10, 'white', ctx)
 player.x = center.x
 player.y = center.y
 player.draw()
@@ -20,47 +20,18 @@ player.draw()
 let projectiles = []
 let enemies = []
 
-function spawnEnemies() {
-  setInterval(() => {
-    const radius = Math.random() * (30 - 4) + 4
-    let x
-    let y
-
-    if (Math.random() < 0.5) {
-      x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius
-      y = Math.random() * canvas.height
-    } else {
-      x = Math.random() * canvas.width
-      y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
-
-    }
-
-
-    const color = 'green'
-    const angle = Math.atan2(center.y - y, center.x - x)
-
-    const velocity = {
-      x: Math.cos(angle),
-      y: Math.sin(angle)
-    }
-
-    const enemy = new Enemy(x, y, radius, color, ctx, velocity)
-    enemies.push(enemy)
-  }, 1000);
-}
-
 addEventListener('click', ({ clientX, clientY }) => {
   console.log(projectiles);
   
 	const angle = Math.atan2(clientY - canvas.height/2, clientX - canvas.width/2)
 
 	const velocity = {
-		x: Math.cos(angle),
-		y: Math.sin(angle)
+		x: Math.cos(angle) * 5,
+		y: Math.sin(angle) * 5
 	}
 
 	console.log(angle)
-  const projectile = new Projectile(center.x, center.y, 5, 'red', ctx, velocity)
+  const projectile = new Projectile(center.x, center.y, 5, 'white', ctx, velocity)
   projectiles.push(projectile)
 })
 
@@ -68,7 +39,8 @@ let animId
 function animate () {
 
   animId = requestAnimationFrame(animate)
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   player.draw()
   projectiles.forEach((p, pi)=> {
@@ -100,4 +72,4 @@ function animate () {
 }
 
 animate()
-spawnEnemies()
+Enemy.spawn(center, enemies)
