@@ -75,8 +75,8 @@ function animate () {
         // create explosion
         for (let i = 0; i < e.radius * 2; i++) {
           particles.push(new Particle(projectile._x, projectile._y, Math.random() * 2, e.color, ctx, {
-            x: (Math.random() - 0.5) * (Math.random() * 8), 
-            y: (Math.random() - 0.5) * (Math.random() * 6), 
+            x: (Math.random() - 0.5) * (Math.random() * 4), 
+            y: (Math.random() - 0.5) * (Math.random() * 4), 
           }))
         }
 

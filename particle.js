@@ -1,3 +1,4 @@
+const friction = 0.96
 class Particle {
   /**
    * 
@@ -38,9 +39,11 @@ class Particle {
 
   update () {
     this.draw()
+    this.velocity._x *= friction
+    this.velocity._y *= friction
     this._x = this._x + this.velocity.x
     this._y = this._y + this.velocity.y
-    this.alpha -= 0.01
+    this.alpha -= 0.02
   }
 
   static spawn(center, enemies) {
