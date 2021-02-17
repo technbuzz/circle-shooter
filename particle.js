@@ -15,6 +15,7 @@ class Particle {
     this.color = color
     this.ctx = ctx
     this.velocity = velocity
+    this.alpha = 1
   }
 
   set x(v) {
@@ -26,16 +27,20 @@ class Particle {
   }
 
   draw () {
+    this.ctx.save()
+    this.ctx.globalAlpha = this.alpha
     this.ctx.beginPath()
     this.ctx.arc(this._x, this._y, this.radius, 0, Math.PI * 2, false)
     this.ctx.fillStyle = this.color
     this.ctx.fill()
+    this.ctx.restore()
   }
 
   update () {
     this.draw()
     this._x = this._x + this.velocity.x
     this._y = this._y + this.velocity.y
+    this.alpha -= 0.01
   }
 
   static spawn(center, enemies) {

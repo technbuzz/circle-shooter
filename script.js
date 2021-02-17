@@ -45,7 +45,11 @@ function animate () {
 
   player.draw()
   particles.forEach((p, pi)=> {
-    p.update()
+    if (p.alpha <= 0) {
+      particles.splice(pi, 1)
+    } else {
+      p.update()
+    }
   })
   projectiles.forEach((p, pi)=> {
     p.update()
@@ -68,10 +72,11 @@ function animate () {
       // when projectile touches the enemy
       if (dist - e.radius - projectile.radius < 1) {
 
-        for (let i = 0; i < 8; i++) {
-          particles.push(new Particle(projectile._x, projectile._y, 3, e.color, ctx, {
-            x: Math.random() - 0.5, 
-            y: Math.random() - 0.5 
+        // create explosion
+        for (let i = 0; i < e.radius * 2; i++) {
+          particles.push(new Particle(projectile._x, projectile._y, Math.random() * 2, e.color, ctx, {
+            x: (Math.random() - 0.5) * (Math.random() * 8), 
+            y: (Math.random() - 0.5) * (Math.random() * 6), 
           }))
         }
 
