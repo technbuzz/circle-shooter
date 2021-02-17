@@ -50,6 +50,8 @@ function spawnEnemies() {
 }
 
 addEventListener('click', ({ clientX, clientY }) => {
+  console.log(projectiles);
+  
 	const angle = Math.atan2(clientY - canvas.height/2, clientX - canvas.width/2)
 
 	const velocity = {
@@ -62,15 +64,28 @@ addEventListener('click', ({ clientX, clientY }) => {
   projectiles.push(projectile)
 })
 
+let animId
 function animate () {
+
+  animId = requestAnimationFrame(animate)
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   player.draw()
-  projectiles.forEach(p => {
+  projectiles.forEach((p, pi)=> {
     p.update()
+    if(p.detectEdges()) {
+      setTimeout(() => {
+        projectiles.splice(pi, 1)
+      });
+    }
   })
   enemies.forEach((e, ei) => {
     e.update()
+    const dist = Math.hypot(player._x - e._x, player._y - e._y)
+    if (dist - e.radius - player.radius < 1) {
+      console.log('colidded');
+      cancelAnimationFrame(animId)
+    }
 
     projectiles.forEach((projectile, pi) => {
       const dist = Math.hypot(projectile._x - e._x, projectile._y - e._y)
@@ -85,7 +100,6 @@ function animate () {
       
     })
   })
-  requestAnimationFrame(animate)
 }
 
 animate()

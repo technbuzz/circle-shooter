@@ -37,4 +37,10 @@ class Projectile {
     this._x = this._x + this.velocity.x
     this._y = this._y + this.velocity.y
   }
+
+  detectEdges() {
+    if (this._x < 0) {
+      return true
+    }
+  }
 }
