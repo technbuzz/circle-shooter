@@ -39,7 +39,7 @@ class Projectile {
   }
 
   detectEdges() {
-    if (this._x < 0) {
+    if (this._x < 0 || this._x > ctx.canvas.width || this._y < 0 || this._y > ctx.canvas.height) {
       return true
     }
   }
