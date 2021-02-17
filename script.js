@@ -69,8 +69,21 @@ function animate () {
   projectiles.forEach(p => {
     p.update()
   })
-  enemies.forEach(e => {
+  enemies.forEach((e, ei) => {
     e.update()
+
+    projectiles.forEach((projectile, pi) => {
+      const dist = Math.hypot(projectile._x - e._x, projectile._y - e._y)
+      if (dist - e.radius - projectile.radius < 1) {
+        console.log('colidded');
+
+        setTimeout(() => {
+          enemies.splice(ei, 1)
+          projectiles.splice(pi, 1)
+        });
+      }
+      
+    })
   })
   requestAnimationFrame(animate)
 }
