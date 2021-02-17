@@ -19,6 +19,7 @@ player.draw()
 
 let projectiles = []
 let enemies = []
+let particles = []
 
 addEventListener('click', ({ clientX, clientY }) => {
   console.log(projectiles);
@@ -43,6 +44,9 @@ function animate () {
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   player.draw()
+  particles.forEach((p, pi)=> {
+    p.update()
+  })
   projectiles.forEach((p, pi)=> {
     p.update()
     if(p.detectEdges()) {
@@ -51,6 +55,7 @@ function animate () {
       });
     }
   })
+  console.log('particles: ', particles);
   enemies.forEach((e, ei) => {
     e.update()
     const dist = Math.hypot(player._x - e._x, player._y - e._y)
@@ -60,11 +65,30 @@ function animate () {
 
     projectiles.forEach((projectile, pi) => {
       const dist = Math.hypot(projectile._x - e._x, projectile._y - e._y)
+      // when projectile touches the enemy
       if (dist - e.radius - projectile.radius < 1) {
-        setTimeout(() => {
-          enemies.splice(ei, 1)
-          projectiles.splice(pi, 1)
-        });
+
+        for (let i = 0; i < 8; i++) {
+          particles.push(new Particle(projectile._x, projectile._y, 3, e.color, ctx, {
+            x: Math.random() - 0.5, 
+            y: Math.random() - 0.5 
+          }))
+        }
+
+        if (e.radius - 10 > 5) {
+          gsap.to(e, {
+            radius: e.radius -10
+          })
+          // e.radius -= 10
+          setTimeout(() => {
+            projectiles.splice(pi, 1)
+          });
+        } else {
+          setTimeout(() => {
+            enemies.splice(ei, 1)
+            projectiles.splice(pi, 1)
+          });
+        }
       }
       
     })
