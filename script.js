@@ -19,12 +19,19 @@ player.draw()
 let projectiles = []
 
 addEventListener('click', ({ clientX, clientY }) => {
-  const projectile = new Projectile(center.x, center.y, 5, 'red', ctx, {x: Math.random(), y: Math.random()})
+	const angle = Math.atan2(clientY - canvas.height/2, clientX - canvas.width/2)
+
+	const velocity = {
+		x: Math.cos(angle),
+		y: Math.sin(angle)
+	}
+
+	console.log(angle)
+  const projectile = new Projectile(center.x, center.y, 5, 'red', ctx, velocity)
   projectiles.push(projectile)
 })
 
 function animate () {
-  console.log('animate');
   projectiles.forEach(p => {
     p.update()
   })
