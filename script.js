@@ -2,9 +2,11 @@
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
+const scoreEl = document.querySelector('.score')
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
+let score = 0
 
 const center = {
   x: canvas.width/2,
@@ -42,7 +44,6 @@ function animate () {
   animId = requestAnimationFrame(animate)
   ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'
   ctx.fillRect(0, 0, canvas.width, canvas.height)
-
   player.draw()
   particles.forEach((p, pi)=> {
     if (p.alpha <= 0) {
@@ -59,9 +60,9 @@ function animate () {
       });
     }
   })
-  console.log('particles: ', particles);
   enemies.forEach((e, ei) => {
     e.update()
+    
     const dist = Math.hypot(player._x - e._x, player._y - e._y)
     if (dist - e.radius - player.radius < 1) {
       // cancelAnimationFrame(animId)
@@ -71,6 +72,7 @@ function animate () {
       const dist = Math.hypot(projectile._x - e._x, projectile._y - e._y)
       // when projectile touches the enemy
       if (dist - e.radius - projectile.radius < 1) {
+        // update the score
 
         // create explosion
         for (let i = 0; i < e.radius * 2; i++) {
@@ -84,11 +86,17 @@ function animate () {
           gsap.to(e, {
             radius: e.radius -10
           })
+
+          score += 100
+          scoreEl.textContent = score
           // e.radius -= 10
           setTimeout(() => {
             projectiles.splice(pi, 1)
           });
         } else {
+
+          score += 250 
+          scoreEl.textContent = score
           setTimeout(() => {
             enemies.splice(ei, 1)
             projectiles.splice(pi, 1)

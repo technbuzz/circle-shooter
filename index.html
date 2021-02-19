@@ -20,10 +20,31 @@
       touch-action: manipulation;
       overscroll-behavior-y: none;
     }
+
+    .ui {
+      position: fixed;
+      top: 5px;
+      left: 5px;
+      color: #fff;
+      user-select: none;
+    }
+
+    .intro {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) trasnlateY(-50%);
+    }
   </style>
   <title>Circle Shooter</title>
 </head>
 <body>
+  <div class="intro">
+    Tap to Shoot
+  </div>
+  <div class="ui">
+    Score: <span class="score">0</span>
+  </div>
   <canvas></canvas>
   <script src="gsap.min.js"></script>
   <script src="particle.js"></script>
