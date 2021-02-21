@@ -3,71 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <style>
-    html {
-      width: 100%;
-      height: 100%;
-    }
-
-    body {
-      user-select: none;
-      font-family: system-ui;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-      max-height: 100%;
-      overflow: hidden;
-      -webkit-user-drag: none;
-      touch-action: manipulation;
-      overscroll-behavior-y: none;
-    }
-
-    .ui {
-      position: fixed;
-      top: 5px;
-      left: 5px;
-      color: #fff;
-      user-select: none;
-    }
-
-    .intro {
-      position: absolute;
-      left: 50%;
-      font-size: 2em;
-      color: #fff;
-      opacity: 1;
-      bottom: 20%;
-      transform: translate(-50%, -50%);
-      animation: fadeOut 1s ease-out 3s forwards;
-    }
-    @keyframes fadeOut{
-      to{
-        opacity: 0
-      }
-    }
-
-    .end-ui {
-      position: absolute;
-      max-width: 320px;
-      margin: 0 auto;
-      top: 50%;
-      background: #fff;
-      width: 320px;
-      text-align: center;
-      transform: translate(-50%, -50%);
-      left: 50%;
-      display: none;
-      border-radius: 4px;
-      padding-bottom: 15px;
-    }
-
-    .end-ui.visible {
-      display: block;
-    }
-  </style>
   <title>Circle Shooter</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="intro">

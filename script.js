@@ -34,7 +34,6 @@ addEventListener('click', ({ clientX, clientY }) => {
 		y: Math.sin(angle) * 5
 	}
 
-	console.log(angle)
   const projectile = new Projectile(center.x, center.y, 5, 'white', ctx, velocity)
   projectiles.push(projectile)
 })
