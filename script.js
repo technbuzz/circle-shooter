@@ -87,15 +87,13 @@ function animate () {
             radius: e.radius -10
           })
 
-          score += 100
-          scoreEl.textContent = score
           // e.radius -= 10
           setTimeout(() => {
             projectiles.splice(pi, 1)
           });
         } else {
 
-          score += 250 
+          score += 100 
           scoreEl.textContent = score
           setTimeout(() => {
             enemies.splice(ei, 1)
