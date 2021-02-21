@@ -3,9 +3,15 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 const scoreEl = document.querySelector('.score')
+const endGameEl = document.querySelector('.end-ui')
+const endGameScore = endGameEl.querySelector('.end-ui_score')
+const playAgainBtn = document.querySelector('#play-again')
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
+let projectiles = []
+let enemies = []
+let particles = []
 let score = 0
 
 const center = {
@@ -19,13 +25,8 @@ player.x = center.x
 player.y = center.y
 player.draw()
 
-let projectiles = []
-let enemies = []
-let particles = []
 
-addEventListener('click', ({ clientX, clientY }) => {
-  console.log(projectiles);
-  
+addEventListener('click', ({ clientX, clientY }) => {  
 	const angle = Math.atan2(clientY - canvas.height/2, clientX - canvas.width/2)
 
 	const velocity = {
@@ -65,7 +66,9 @@ function animate () {
     
     const dist = Math.hypot(player._x - e._x, player._y - e._y)
     if (dist - e.radius - player.radius < 1) {
-      // cancelAnimationFrame(animId)
+      cancelAnimationFrame(animId)
+      endGameScore.textContent = score
+      endGameEl.classList.add('visible')
     }
 
     projectiles.forEach((projectile, pi) => {
@@ -106,5 +109,19 @@ function animate () {
   })
 }
 
-animate()
-Enemy.spawn(center, enemies)
+function init() {
+  projectiles = []
+  enemies = []
+  particles = []
+  score = 0
+  animate()
+  Enemy.spawn(center, enemies)
+}
+
+playAgainBtn.addEventListener('click', event => {
+  event.stopPropagation()
+  endGameEl.classList.remove('visible')
+  init()
+})
+
+init()

@@ -47,6 +47,25 @@
         opacity: 0
       }
     }
+
+    .end-ui {
+      position: absolute;
+      max-width: 320px;
+      margin: 0 auto;
+      top: 50%;
+      background: #fff;
+      width: 320px;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      display: none;
+      border-radius: 4px;
+      padding-bottom: 15px;
+    }
+
+    .end-ui.visible {
+      display: block;
+    }
   </style>
   <title>Circle Shooter</title>
 </head>
@@ -56,6 +75,11 @@
   </div>
   <div class="ui">
     Score: <span class="score">0</span>
+  </div>
+  <div class="end-ui">
+    <p>Your Score</p>
+    <h3 class="end-ui_score">0</h3>
+    <button id="play-again">Play Again</button>
   </div>
   <canvas></canvas>
   <script src="gsap.min.js"></script>
